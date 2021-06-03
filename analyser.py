@@ -1,22 +1,31 @@
-import pickle 
-import pandas as pd
+import pickle
+
+import nltk
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+# from nltk.tokenize import word_tokenize, sent_tokenize
+
+
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+
+
 
 # Pickle files
 model_filename = "temp_pickle_nbc.sav"
 vectorizer_filename = "temp_vectorizer.pickle"
 
-dictionary = {0: "Savings Account", 1: "Credit Card", 
+dictionary = {0: "Savings Account", 1: "Credit Card",
 2: "Credit Reporting", 3: "Mortgage", 4: "Student Loan"}
 
 def analyse(complaint):
 
 	complaint = complaint.lower()
-	
+
 	# Input Cleaning
 	stop_words = set(stopwords.words('english'))
-	
+
 	lemmatizer = WordNetLemmatizer()
 
 	# New Input String After Lemmatization
@@ -33,12 +42,3 @@ def analyse(complaint):
 	output = model.predict(W.toarray())[0]
 
 	return dictionary[output]
-
-data = pd.read_csv("bank_dataset.csv")
-
-# input string
-row1 = data.iloc[3]
-
-string = row1['Complaint']
-
-print(analyse(string))
