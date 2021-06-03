@@ -16,8 +16,9 @@ def default_method():
 def post_method():
 	complaint = request.form['data']
 	output = analyse(complaint)
-	print(output)
 	return output
+
+
 
 if __name__ == "__main__":
 	app.run(host='0.0.0.0')
